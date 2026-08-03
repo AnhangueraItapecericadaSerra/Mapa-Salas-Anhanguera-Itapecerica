@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início - Anhanguera Itapecerica da Serra</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        
+        /* IMAGEM DE FUNDO DO CAMPUS AQUI */
+        #home {
+            /* O código vai procurar uma imagem com este nome na mesma pasta */
+            background-image: url('fundo-anhanguera.jpg');
+            background-size: cover; 
+            background-position: center; 
+            height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            /* Cor laranja de fundo caso a foto ainda não esteja na pasta */
+            background-color: #F26522; 
+        }
+        
+        .home-box { 
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 40px; 
+            border-radius: 15px; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3); 
+            text-align: center; 
+            border-top: 6px solid #F26522; /* Detalhe em laranja Anhanguera */
+        }
+        
+        .btn-group { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
+        
+        /* Botões Laranjas */
+        .btn { 
+            display: inline-block; padding: 15px 40px; font-size: 18px; font-weight: bold; 
+            text-decoration: none; border-radius: 8px; 
+            background-color: #F26522; 
+            color: white; transition: all 0.3s ease; 
+        }
+        .btn:hover { background-color: #d95517; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <div id="home">
+        <div class="home-box">
+            <h1 style="color: #2c3e50;">Mapa de Salas</h1>
+            <h2 style="color: #F26522; margin-top: -10px;">Anhanguera - Itapecerica da Serra</h2>
+            <p style="color: #555;">Selecione a modalidade desejada abaixo.</p>
+            <div class="btn-group">
+                <a href="presencial.html" class="btn">Salas Presencial</a>
+                <a href="ead.html" class="btn">Salas EAD</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

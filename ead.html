@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EAD - Anhanguera</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #ffffff; color: #333; padding: 20px; }
+        
+        .logo-container { text-align: center; margin-bottom: 20px; }
+        .logo-container img { max-width: 250px; } 
+
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #eee; border-top: 5px solid #F26522; }
+        
+        .back-btn { display: inline-block; background-color: #F26522; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-bottom: 20px; font-weight: bold; }
+        .back-btn:hover { background-color: #d95517; }
+        h2 { color: #F26522; text-align: center; }
+        
+        /* === ESTILO DO NOVO PAINEL DE FILTROS === */
+        .painel-filtros {
+            display: flex; flex-wrap: wrap; gap: 15px; background: #fdfdfd; 
+            padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 25px; align-items: center;
+        }
+        .filtro-item {
+            display: flex; align-items: center; background: white; border: 1px solid #ccc; 
+            border-radius: 6px; padding: 5px 10px; flex: 1; min-width: 220px;
+        }
+        .filtro-item span { margin-right: 10px; font-size: 18px; }
+        .filtro-item input, .filtro-item select {
+            border: none; outline: none; width: 100%; padding: 8px 0; font-size: 15px; background: transparent; color: #444;
+        }
+        .btn-limpar {
+            background-color: #7f8c8d; color: white; border: none; padding: 12px 20px; 
+            border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 15px; transition: 0.3s;
+        }
+        .btn-limpar:hover { background-color: #636e72; }
+
+        /* Estilo da Tabela */
+        table { width: 100%; border-collapse: collapse; font-size: 15px; }
+        th, td { padding: 12px; border: 1px solid #e0e0e0; text-align: left; }
+        th { background-color: #F26522; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        tr:hover { background-color: #f1f1f1; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo Anhanguera -->
+        <div class="logo-container">
+            <img src="logo-anhanguera.png" alt="Logo Faculdade Anhanguera">
+        </div>
+
+        <a href="index.html" class="back-btn">⬅ Voltar para o Início</a>
+        <h2>Salas EAD</h2>
+        
+        <!-- === PAINEL DE FILTROS === -->
+        <div class="painel-filtros">
+            <!-- Filtro 1: Texto -->
+            <div class="filtro-item">
+                <span>🔍</span>
+                <input type="text" id="buscaTexto" onkeyup="filtrar()" placeholder="Buscar curso, semestre ou sala...">
+            </div>
+            
+            <!-- Filtro 2: Dia da Semana -->
+            <div class="filtro-item">
+                <span>📅</span>
+                <select id="buscaDia" onchange="filtrar()">
+                    <option value="">Filtrar por dia...</option>
+                    <option value="Segunda-feira">Segunda-feira</option>
+                    <option value="Terça-feira">Terça-feira</option>
+                    <option value="Quarta-feira">Quarta-feira</option>
+                    <option value="Quinta-feira">Quinta-feira</option>
+                    <option value="Sexta-feira">Sexta-feira</option>
+                    <option value="Sábado">Sábado</option>
+                </select>
+            </div>
+
+            <!-- Filtro 3: Turno -->
+            <div class="filtro-item">
+                <select id="buscaTurno" onchange="filtrar()" style="padding-left: 5px;">
+                    <option value="">Todos os Turnos</option>
+                    <option value="Matutino">Matutino</option>
+                    <option value="Noturno">Noturno</option>
+                </select>
+            </div>
+
+            <!-- Botão Limpar -->
+            <button class="btn-limpar" onclick="limparFiltros()">Limpar Filtros</button>
+        </div>
+        
+        <table id="tabela">
+            <thead>
+                <tr>
+                    <th>Período</th>
+                    <th>Dia da Semana</th>
+                    <th>Curso</th>
+                    <th>Semestre</th>
+                    <th>Disciplina</th>
+                    <th>Número da Sala</th>
+                </tr>
+            </thead>
+            <tbody>
+                 <!-- ADICIONE SUAS AULAS EAD AQUI -->
+                 <tr>
+                    <td>🌙 Noturno</td>
+                    <td>Segunda-feira</td>
+                    <td>Pedagogia</td>
+                    <td>1º Semestre</td>
+                    <td>Didática</td>
+                    <td>Link Meet 01</td>
+                </tr>
+                <tr>
+                    <td>☀️ Matutino</td>
+                    <td>Terça-feira</td>
+                    <td>Análise de Sistemas</td>
+                    <td>3º Semestre</td>
+                    <td>Banco de Dados</td>
+                    <td>Teams Sala B</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SCRIPT DOS NOVOS FILTROS ATUALIZADO PARA 6 COLUNAS -->
+    <script>
+        function filtrar() {
+            let texto = document.getElementById('buscaTexto').value.toLowerCase();
+            let dia = document.getElementById('buscaDia').value.toLowerCase();
+            let turno = document.getElementById('buscaTurno').value.toLowerCase();
+            
+            let linhas = document.querySelectorAll('#tabela tbody tr');
+            
+            linhas.forEach(linha => {
+                let textoPeriodo = linha.cells[0].textContent.toLowerCase();
+                let textoDia = linha.cells[1].textContent.toLowerCase();
+                
+                // Agora junta Curso (2), Semestre (3), Disciplina (4) e Sala (5)
+                let textoCursoSala = linha.cells[2].textContent + " " + linha.cells[3].textContent + " " + linha.cells[4].textContent + " " + linha.cells[5].textContent;
+                textoCursoSala = textoCursoSala.toLowerCase();
+
+                let passaTexto = textoCursoSala.includes(texto);
+                let passaDia = dia === "" || textoDia.includes(dia);
+                let passaTurno = turno === "" || textoPeriodo.includes(turno);
+                
+                if (passaTexto && passaDia && passaTurno) {
+                    linha.style.display = '';
+                } else {
+                    linha.style.display = 'none';
+                }
+            });
+        }
+
+        function limparFiltros() {
+            document.getElementById('buscaTexto').value = '';
+            document.getElementById('buscaDia').value = '';
+            document.getElementById('buscaTurno').value = '';
+            filtrar();
+        }
+    </script>
+</body>
+</html>
