@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EAD - Anhanguera</title>
+    <title>Salas EAD - Anhanguera</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #ffffff; color: #333; padding: 20px; }
         
@@ -16,52 +16,139 @@
         .back-btn:hover { background-color: #d95517; }
         h2 { color: #F26522; text-align: center; }
         
-        /* === ESTILO DO NOVO PAINEL DE FILTROS === */
-        .painel-filtros {
-            display: flex; flex-wrap: wrap; gap: 15px; background: #fdfdfd; 
-            padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 25px; align-items: center;
-        }
-        .filtro-item {
-            display: flex; align-items: center; background: white; border: 1px solid #ccc; 
-            border-radius: 6px; padding: 5px 10px; flex: 1; min-width: 220px;
-        }
+        .painel-filtros { display: flex; flex-wrap: wrap; gap: 15px; background: #fdfdfd; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 25px; align-items: center; }
+        .filtro-item { display: flex; align-items: center; background: white; border: 1px solid #ccc; border-radius: 6px; padding: 5px 10px; flex: 1; min-width: 220px; }
         .filtro-item span { margin-right: 10px; font-size: 18px; }
-        .filtro-item input, .filtro-item select {
-            border: none; outline: none; width: 100%; padding: 8px 0; font-size: 15px; background: transparent; color: #444;
-        }
-        .btn-limpar {
-            background-color: #7f8c8d; color: white; border: none; padding: 12px 20px; 
-            border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 15px; transition: 0.3s;
-        }
+        .filtro-item input, .filtro-item select { border: none; outline: none; width: 100%; padding: 8px 0; font-size: 15px; background: transparent; color: #444; }
+        .btn-limpar { background-color: #7f8c8d; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 15px; transition: 0.3s; }
         .btn-limpar:hover { background-color: #636e72; }
 
-        /* Estilo da Tabela */
-        table { width: 100%; border-collapse: collapse; font-size: 15px; }
-        th, td { padding: 12px; border: 1px solid #e0e0e0; text-align: left; }
-        th { background-color: #F26522; color: white; }
-        tr:nth-child(even) { background-color: #f9f9f9; }
-        tr:hover { background-color: #f1f1f1; }
+        /* === ESTILO DA TABELA: MODERNO E DINÂMICO === */
+        table { width: 100%; border-collapse: separate; border-spacing: 0 12px; font-size: 15px; }
+        th, td { padding: 16px; text-align: left; border: none; }
+        
+        th { background-color: #F26522; color: white; font-weight: 600; text-transform: uppercase; font-size: 14px; letter-spacing: 0.5px; }
+        th:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+        th:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
+
+        tbody tr td { background-color: #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.04); transition: all 0.3s ease; }
+        tbody tr:nth-child(even) td { background-color: #fdfdfd; }
+
+        tbody td:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-left: 5px solid #F26522; }
+        tbody td:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
+
+        tbody tr:hover td { background-color: #fff5f0; transform: translateY(-3px); box-shadow: 0 8px 15px rgba(242, 101, 34, 0.15); cursor: pointer; }
+
+        /* === CORES DIFERENTES PARA CADA COLUNA === */
+        tbody td:nth-child(1) { color: #F26522; font-weight: bold; } /* Período */
+        tbody td:nth-child(2) { color: #2980b9; font-weight: 500; } /* Dia */
+        tbody td:nth-child(3) { color: #2c3e50; font-weight: bold; } /* Curso */
+        tbody td:nth-child(4) { color: #27ae60; font-weight: 600; } /* Semestre */
+        tbody td:nth-child(5) { color: #8e44ad; font-weight: 500; } /* Disciplina */
+        tbody td:nth-child(6) { color: #16a085; font-weight: 600; } /* Mediador (Cor nova: Verde-azulado) */
+        
+        /* Coluna 7: Número da Sala */
+        tbody td:nth-child(7) { 
+            color: #d95517; font-weight: bold; background-color: #fff0e8; 
+            border-top-right-radius: 10px; border-bottom-right-radius: 10px; 
+        }
+        tbody tr:hover td:nth-child(7) { background-color: #ffe4d6; }
+        /* ========================================================= */
+        /* === RESPONSIVIDADE (ADAPTAÇÃO PARA CELULARES E TABLETS) === */
+        /* ========================================================= */
+        @media (max-width: 768px) {
+            /* 1. Ajustes de espaçamento geral */
+            .container { padding: 15px; border-top: 4px solid #F26522; }
+            .logo-container img { max-width: 200px; }
+            
+            /* 2. Filtros ocupando a tela toda no celular */
+            .painel-filtros { flex-direction: column; align-items: stretch; gap: 10px; padding: 15px; }
+            .filtro-item { min-width: 100%; width: 100%; }
+            .btn-limpar { width: 100%; margin-top: 5px; }
+
+            /* 3. Transforma a Tabela em "Cartões" */
+            table, thead, tbody, th, td, tr { display: block; width: 100%; box-sizing: border-box; }
+            
+            /* Esconde o cabeçalho original da tabela no celular */
+            thead { display: none; }
+            
+            /* Desenha o contorno do Cartão */
+            tbody tr { 
+                margin-bottom: 20px; 
+                border: 1px solid #e0e0e0; 
+                border-radius: 12px; 
+                overflow: hidden; 
+                box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            }
+            
+            /* Ajusta o texto dentro de cada linha do cartão */
+            tbody td { 
+                position: relative; 
+                padding: 12px 15px 12px 120px; /* Dá espaço na esquerda para os rótulos */
+                text-align: right; 
+                border-bottom: 1px solid #f0f0f0;
+                border-radius: 0 !important; /* Remove o arredondamento de PC */
+                border-left: none !important; /* Remove a faixa lateral de PC */
+                min-height: 45px;
+            }
+            
+            tbody td:last-child { border-bottom: none; }
+
+            /* Destaque especial para a Sala no celular */
+            tbody td:nth-child(7) { 
+                background-color: #F26522 !important; 
+                color: white !important; 
+                font-size: 16px; 
+                text-align: center;
+                padding: 15px !important;
+            }
+
+            /* 4. Cria os títulos mágicos na esquerda de cada item do cartão */
+            tbody td::before { 
+                position: absolute; 
+                left: 15px; 
+                top: 12px;
+                width: 100px; 
+                text-align: left; 
+                font-weight: bold; 
+                color: #555;
+                font-size: 13px;
+                text-transform: uppercase;
+            }
+            
+            /* Nomeando cada linha dinamicamente via CSS */
+            tbody td:nth-child(1)::before { content: "Período:"; }
+            tbody td:nth-child(2)::before { content: "Dia:"; }
+            tbody td:nth-child(3)::before { content: "Curso:"; }
+            tbody td:nth-child(4)::before { content: "Semestre:"; }
+            tbody td:nth-child(5)::before { content: "Disciplina:"; }
+            
+            /* ATENÇÃO: No arquivo EAD.html, troque a palavra "Professor:" por "Mediador:" aqui embaixo */
+            tbody td:nth-child(6)::before { content: "Professor:"; }
+            
+            tbody td:nth-child(7)::before { content: ""; /* Sem rótulo, pois a sala fica em destaque total */ }
+            
+            /* Remove os efeitos de hover complexos no celular para não travar a tela */
+            tbody tr:hover td { transform: none; box-shadow: none; cursor: default; }
+            tbody tr:hover td:nth-child(7) { background-color: #F26522 !important; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Logo Anhanguera -->
         <div class="logo-container">
             <img src="logo-anhanguera.png" alt="Logo Faculdade Anhanguera">
         </div>
 
         <a href="index.html" class="back-btn">⬅ Voltar para o Início</a>
-        <h2>Salas EAD</h2>
+        <h2>EAD</h2>
         
-        <!-- === PAINEL DE FILTROS === -->
         <div class="painel-filtros">
-            <!-- Filtro 1: Texto -->
             <div class="filtro-item">
                 <span>🔍</span>
-                <input type="text" id="buscaTexto" onkeyup="filtrar()" placeholder="Buscar curso, semestre ou sala...">
+                <input type="text" id="buscaTexto" onkeyup="filtrar()" placeholder="Buscar curso, semestre, disciplina ou sala...">
             </div>
             
-            <!-- Filtro 2: Dia da Semana -->
             <div class="filtro-item">
                 <span>📅</span>
                 <select id="buscaDia" onchange="filtrar()">
@@ -75,7 +162,6 @@
                 </select>
             </div>
 
-            <!-- Filtro 3: Turno -->
             <div class="filtro-item">
                 <select id="buscaTurno" onchange="filtrar()" style="padding-left: 5px;">
                     <option value="">Todos os Turnos</option>
@@ -84,7 +170,6 @@
                 </select>
             </div>
 
-            <!-- Botão Limpar -->
             <button class="btn-limpar" onclick="limparFiltros()">Limpar Filtros</button>
         </div>
         
@@ -96,17 +181,19 @@
                     <th>Curso</th>
                     <th>Semestre</th>
                     <th>Disciplina</th>
+                    <th>Mediador</th>
                     <th>Número da Sala</th>
                 </tr>
             </thead>
             <tbody>
-                 <!-- ADICIONE SUAS AULAS EAD AQUI -->
+                 <!-- EXEMPLOS EAD (AGORA COM 7 COLUNAS) -->
                  <tr>
                     <td>🌙 Noturno</td>
                     <td>Segunda-feira</td>
                     <td>Pedagogia</td>
                     <td>1º Semestre</td>
                     <td>Didática</td>
+                    <td>Tutora Fernanda</td>
                     <td>Link Meet 01</td>
                 </tr>
                 <tr>
@@ -115,13 +202,13 @@
                     <td>Análise de Sistemas</td>
                     <td>3º Semestre</td>
                     <td>Banco de Dados</td>
+                    <td>Tutor Roberto</td>
                     <td>Teams Sala B</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <!-- SCRIPT DOS NOVOS FILTROS ATUALIZADO PARA 6 COLUNAS -->
     <script>
         function filtrar() {
             let texto = document.getElementById('buscaTexto').value.toLowerCase();
@@ -134,11 +221,11 @@
                 let textoPeriodo = linha.cells[0].textContent.toLowerCase();
                 let textoDia = linha.cells[1].textContent.toLowerCase();
                 
-                // Agora junta Curso (2), Semestre (3), Disciplina (4) e Sala (5)
-                let textoCursoSala = linha.cells[2].textContent + " " + linha.cells[3].textContent + " " + linha.cells[4].textContent + " " + linha.cells[5].textContent;
-                textoCursoSala = textoCursoSala.toLowerCase();
+                // Agora junta colunas 2 a 6 para a busca global
+                let textoBusca = linha.cells[2].textContent + " " + linha.cells[3].textContent + " " + linha.cells[4].textContent + " " + linha.cells[5].textContent + " " + linha.cells[6].textContent;
+                textoBusca = textoBusca.toLowerCase();
 
-                let passaTexto = textoCursoSala.includes(texto);
+                let passaTexto = textoBusca.includes(texto);
                 let passaDia = dia === "" || textoDia.includes(dia);
                 let passaTurno = turno === "" || textoPeriodo.includes(turno);
                 
